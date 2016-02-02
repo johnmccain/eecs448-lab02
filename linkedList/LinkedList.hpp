@@ -100,12 +100,36 @@ template <typename T>
 bool LinkedList<T>::removeBack()
 {
 	Node<T>* lastNode = nullptr;
-	Node<T>* secondintoLast = nullptr;
+	Node<T>* secondintoLast = m_front;
 	bool isRemoved = false;
 
-	/** TODO 
-		Fix this method
-	*/
+	if(isEmpty())
+	{
+		//Do nothing
+
+	}
+	else if (secondintoLast->getNext() == nullptr)
+	{
+		//If the first node points to a nullptr, then it is the last node
+		delete secondintoLast;
+		m_front = nullptr;
+		isRemoved = true;
+		m_size--;
+	}
+	else
+	{
+		//if the first node is not the last, then this finds the second to last node
+		while(secondintoLast->getNext()->getNext() != nullptr)
+		{
+			secondintoLast = secondintoLast->getNext();
+		}
+		lastNode = secondintoLast->getNext();
+		delete lastNode;
+		secondintoLast->setNext(nullptr);
+		lastNode = nullptr;
+		isRemoved = true;
+		m_size--;
+	}
 
 	return(isRemoved);
 }	
